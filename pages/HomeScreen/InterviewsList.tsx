@@ -1,6 +1,7 @@
 import React from 'react';
 import {SafeAreaView, View, VirtualizedList, StyleSheet, Text, StatusBar} from 'react-native';
 import {useTheme, Avatar} from 'react-native-paper';
+import InterviewsListItem from './InterviewsListItem';
 
 const data = Array.from(Array(4).keys()).map(index => ({
     id: index,
@@ -21,7 +22,7 @@ type ItemProps = {
     image: string;
 };
 
-type ItemData = {
+export type ItemData = {
     id: string;
     title: string;
     company: string;
@@ -44,7 +45,7 @@ const getItem = (_data: ItemProps, index: number): ItemData => ({
 const getItemCount = (_data: ItemProps[]) => _data.length;
 
 const renderItem = ({item}: {item: ItemData}) => {
-    return <Item item={item} />;
+    return <InterviewsListItem item={item} />;
 };
 
 const InterviewsList = () => {
@@ -59,20 +60,6 @@ const InterviewsList = () => {
                 getItemCount={getItemCount}
                 getItem={getItem}
             />
-        </View>
-    );
-};
-
-const Item = ({item}: {item: ItemData}) => {
-    const {title, company, status, startDate, endDate, image} = item;
-    return (
-        <View style={styles.item}>
-            {/* <Avatar.Image size={24} source={image as any} /> */}
-            <Text style={styles.title}>{title}</Text>
-            <Text>{company}</Text>
-            <Text>{status}</Text>
-            <Text>{startDate}</Text>
-            <Text>{endDate}</Text>
         </View>
     );
 };

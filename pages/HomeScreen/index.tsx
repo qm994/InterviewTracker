@@ -15,8 +15,30 @@ import {SearchBar} from '../../components/SearchBar';
 import InterviewsListHeader from './InterviewsListHeader';
 import {useTheme} from 'react-native-paper';
 import InterviewsList from './InterviewsList';
+import {createStackNavigator} from '@react-navigation/stack';
 
-export default function HomeScreen() {
+const Stack = createStackNavigator();
+
+export function HomeScreenStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="InterviewDetail" component={InterviewDetailsScreen} />
+        </Stack.Navigator>
+    );
+}
+
+const InterviewDetailsScreen = () => {
+    return (
+        <View>
+            <Text style={{fontSize: 32}}>Interview Detail screen</Text>
+        </View>
+    );
+};
+
+//TODO: Add redux to dispatch the navigation to each item
+
+const HomeScreen = ({navigation}: {navigation: any}) => {
     const theme = useTheme();
     const [isSearchBarEnabled, setIsSearchBarEnabled] = useState<boolean>(false);
 
@@ -33,4 +55,4 @@ export default function HomeScreen() {
             <InterviewsList />
         </SafeAreaView>
     );
-}
+};

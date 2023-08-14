@@ -1,48 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme,
-    View,
-    Image,
-    TextInput,
-} from 'react-native';
+import {StyleSheet, useColorScheme} from 'react-native';
 import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import BottomTabs from './components/BottomTabs';
-
+import {PaperProvider, MD3DarkTheme, MD3LightTheme, adaptNavigationTheme} from 'react-native-paper';
 import {
-    PaperProvider,
-    MD3DarkTheme,
-    MD3LightTheme,
-    MD2DarkTheme,
-    MD2LightTheme,
-} from 'react-native-paper';
+    NavigationContainer,
+    DarkTheme as NavigationDarkTheme,
+    DefaultTheme as NavigationDefaultTheme,
+} from '@react-navigation/native';
+
+import HomeScreen from './pages/HomeScreen';
+import ProfileScreen from './pages/ProfileScreen';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+function MyStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+        </Stack.Navigator>
+    );
+}
 
 function App(): JSX.Element {
     const colorScheme = useColorScheme();
-
     const paperTheme = colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
-
-    const [textInput, setTextInput] = useState<string>('');
+    //adapting React Navigation theme colors, to use the ones from React Native Paper,
+    //https://callstack.github.io/react-native-paper/docs/guides/theming-with-react-navigation/
+    const {LightTheme, DarkTheme} = adaptNavigationTheme({
+        reactNavigationLight: NavigationDefaultTheme,
+        reactNavigationDark: NavigationDarkTheme,
+    });
 
     return (
         // SafeAreaView will hide bottom navigation bar
         // https://reactnavigation.org/docs/handling-safe-area/
         <PaperProvider theme={paperTheme}>
             <SafeAreaProvider>
-                <BottomTabs />
+                <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : LightTheme}>
+                    {/* <MyStack /> */}
+                    <BottomTabs />
+                </NavigationContainer>
             </SafeAreaProvider>
         </PaperProvider>
     );

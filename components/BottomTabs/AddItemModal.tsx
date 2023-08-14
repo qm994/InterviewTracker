@@ -1,13 +1,14 @@
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, useColorScheme, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {BottomTabBarButtonProps} from '@react-navigation/bottom-tabs';
 import {Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTheme} from 'react-native-paper';
 
 function AddItemModal(props: BottomTabBarButtonProps) {
-    console.log({props});
+    const theme = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <>
@@ -22,16 +23,34 @@ function AddItemModal(props: BottomTabBarButtonProps) {
             <SafeAreaView>
                 <Modal
                     animationIn="slideInUp"
-                    backdropOpacity={0.3}
+                    backdropOpacity={0.6}
                     isVisible={modalVisible}
                     onBackdropPress={() => setModalVisible(false)}
                     style={styles.contentView}>
-                    <View style={styles.content}>
-                        <Text style={styles.contentTitle}>Add interview</Text>
+                    {/* Makes model content use the system theme */}
+                    <View style={[styles.content, {backgroundColor: theme.colors.background}]}>
+                        <TouchableOpacity
+                            style={styles.contentTitle}
+                            hitSlop={{left: 100, right: 100}}>
+                            <Button style={styles.contentTitle} onPress={() => {}}>
+                                Add interview
+                            </Button>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.contentTitle}
+                            hitSlop={{left: 100, right: 100}}>
+                            <Button style={styles.contentTitle} onPress={() => {}}>
+                                Add Company
+                            </Button>
+                        </TouchableOpacity>
 
-                        <Text style={styles.contentTitle}>Add company</Text>
-
-                        <Text style={styles.contentTitle}>Add post</Text>
+                        <TouchableOpacity
+                            style={styles.contentTitle}
+                            hitSlop={{left: 100, right: 100}}>
+                            <Button style={styles.contentTitle} onPress={() => {}}>
+                                Add Post
+                            </Button>
+                        </TouchableOpacity>
                     </View>
                 </Modal>
             </SafeAreaView>
