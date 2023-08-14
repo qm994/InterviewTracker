@@ -11,10 +11,10 @@ export default function HomeAppHeader({
 
     return (
         <Appbar.Header dark={isDarkMode}>
-            <Appbar.Content title="Home Page" />
+            <Appbar.Content title="10 interviews on track" mode="small" />
             <Appbar.Action icon="magnify" onPress={toggleHeaderSearchBar} />
             <Appbar.Action
-                icon={'dots-horizontal'}
+                icon={'dots-vertical'}
                 onPress={() => {
                     console.log('lol');
                 }}

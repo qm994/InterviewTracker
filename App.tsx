@@ -6,7 +6,6 @@
  */
 
 import React, {useState} from 'react';
-import type {PropsWithChildren} from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -21,27 +20,29 @@ import {
 import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import BottomTabs from './pages/BottomTabs';
-import {NavigationContainer} from '@react-navigation/native';
-import {PaperProvider} from 'react-native-paper';
+import BottomTabs from './components/BottomTabs';
+
+import {
+    PaperProvider,
+    MD3DarkTheme,
+    MD3LightTheme,
+    MD2DarkTheme,
+    MD2LightTheme,
+} from 'react-native-paper';
 
 function App(): JSX.Element {
-    const isDarkMode = useColorScheme() === 'dark';
+    const colorScheme = useColorScheme();
+
+    const paperTheme = colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
 
     const [textInput, setTextInput] = useState<string>('');
-
-    const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    };
 
     return (
         // SafeAreaView will hide bottom navigation bar
         // https://reactnavigation.org/docs/handling-safe-area/
-        <PaperProvider>
+        <PaperProvider theme={paperTheme}>
             <SafeAreaProvider>
-                <NavigationContainer>
-                    <BottomTabs />
-                </NavigationContainer>
+                <BottomTabs />
             </SafeAreaProvider>
         </PaperProvider>
     );
