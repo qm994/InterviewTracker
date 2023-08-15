@@ -22,7 +22,14 @@ const Stack = createStackNavigator();
 export function HomeScreenStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    // Once login, remove back button to auth screen
+                    headerLeft: () => null,
+                }}
+            />
             <Stack.Screen name="InterviewDetail" component={InterviewDetailsScreen} />
         </Stack.Navigator>
     );

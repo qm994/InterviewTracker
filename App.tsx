@@ -1,28 +1,72 @@
 import 'react-native-gesture-handler';
 import React, {useState} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
+import {StyleSheet, useColorScheme, View} from 'react-native';
 import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
 import BottomTabs from './components/BottomTabs';
-import {PaperProvider, MD3DarkTheme, MD3LightTheme, adaptNavigationTheme} from 'react-native-paper';
+import {
+    PaperProvider,
+    MD3DarkTheme,
+    MD3LightTheme,
+    adaptNavigationTheme,
+    Text,
+    Button,
+} from 'react-native-paper';
 import {
     NavigationContainer,
     DarkTheme as NavigationDarkTheme,
     DefaultTheme as NavigationDefaultTheme,
+    NavigationProp,
+    ParamListBase,
 } from '@react-navigation/native';
 
-import HomeScreen from './pages/HomeScreen';
-import ProfileScreen from './pages/ProfileScreen';
 import {createStackNavigator} from '@react-navigation/stack';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
-function MyStack() {
+
+const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) => {
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+        <SafeAreaView>
+            <Text variant="titleLarge">LoginScreen</Text>
+            <Button onPress={() => navigation.navigate('HomeScreen')}>Login</Button>
+        </SafeAreaView>
+    );
+};
+
+const RegisterScreen = () => {
+    return (
+        <SafeAreaView>
+            <Text variant="titleLarge">RegisterScreen</Text>
+        </SafeAreaView>
+    );
+};
+
+const Auth = () => {
+    // Stack Navigator for Login and Sign up Screen
+    return (
+        <Stack.Navigator initialRouteName="LoginScreen">
+            <Stack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
+                name="RegisterScreen"
+                component={RegisterScreen}
+                options={{
+                    title: 'Register', //Set Header Title
+                    headerStyle: {
+                        backgroundColor: '#307ecc', //Set Header color
+                    },
+                    headerTintColor: '#fff', //Set Header text color
+                    headerTitleStyle: {
+                        fontWeight: 'bold', //Set Header text style
+                    },
+                }}
+            />
         </Stack.Navigator>
     );
-}
+};
 
 function App(): JSX.Element {
     const colorScheme = useColorScheme();
@@ -40,8 +84,16 @@ function App(): JSX.Element {
         <PaperProvider theme={paperTheme}>
             <SafeAreaProvider>
                 <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : LightTheme}>
-                    {/* <MyStack /> */}
-                    <BottomTabs />
+                    <Stack.Navigator>
+                        <Stack.Screen name="Auth" component={Auth} options={{headerShown: false}} />
+                        <Stack.Screen
+                            name="HomeScreen"
+                            component={BottomTabs}
+                            options={{
+                                headerShown: false,
+                            }}
+                        />
+                    </Stack.Navigator>
                 </NavigationContainer>
             </SafeAreaProvider>
         </PaperProvider>
