@@ -22,9 +22,6 @@ const Tab = createBottomTabNavigator();
 
 //TODO: Create a huge add button in the middle of the bottom tab bar used to add item
 export default function BottomTabs() {
-    const colorScheme = useColorScheme();
-
-    const paperTheme = colorScheme === 'dark' ? MD2DarkTheme : MD2LightTheme;
     return (
         <Tab.Navigator initialRouteName="Home">
             <Tab.Screen

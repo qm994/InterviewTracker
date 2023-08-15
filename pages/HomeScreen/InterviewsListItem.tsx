@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {ItemData} from './InterviewsList';
 import {useNavigation, NavigationProp, ParamListBase} from '@react-navigation/native';
 
@@ -11,8 +11,7 @@ const InterviewsListItem = ({item}: {item: ItemData}) => {
         navigation.navigate('InterviewDetail');
     };
     return (
-        <TouchableOpacity style={styles.item} onPress={onTab}>
-            {/* <Avatar.Image size={24} source={image as any} /> */}
+        <TouchableOpacity style={styles.item} onPress={onTab} activeOpacity={0.8}>
             <Text style={styles.title}>{title}</Text>
             <Text>{company}</Text>
             <Text>{status}</Text>
