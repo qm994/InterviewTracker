@@ -25,7 +25,7 @@ const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) 
         if (!userPassword) {
             return;
         }
-        navigation.navigate('HomeScreen');
+        navigation.navigate('SignedInScreen');
         // auth()
         //     .signInWithEmailAndPassword(userEmail, userPassword)
         //     .then(user => {
@@ -101,9 +101,7 @@ const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) 
                     <Button
                         onPressIn={() => navigation.navigate('RegisterScreen')}
                         mode="contained"
-                        style={styles.buttonStyle}
-                        //onPress={() => navigation.navigate('HomeScreen')}
-                    >
+                        style={styles.buttonStyle}>
                         Register
                     </Button>
                 </View>

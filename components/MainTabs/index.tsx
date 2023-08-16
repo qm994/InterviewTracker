@@ -17,15 +17,16 @@ import {
     MD3LightTheme,
 } from 'react-native-paper';
 import AddItemModal from './AddItemModal';
+import {SignedInScreensTab} from '../../pages/screens';
 
 const Tab = createBottomTabNavigator();
 
 //TODO: Create a huge add button in the middle of the bottom tab bar used to add item
-export default function BottomTabs() {
+export default function MainTabs() {
     return (
-        <Tab.Navigator initialRouteName="Home">
+        <Tab.Navigator initialRouteName={SignedInScreensTab.HomeScreen}>
             <Tab.Screen
-                name="Home"
+                name={SignedInScreensTab.HomeScreen}
                 component={HomeScreenStack}
                 options={{
                     headerShown: false,
@@ -34,7 +35,7 @@ export default function BottomTabs() {
                 }}
             />
             <Tab.Screen
-                name="Add"
+                name={SignedInScreensTab.AddScreen}
                 options={{
                     tabBarLabel: '',
                     //tabBarIcon: AddItemIcon,
@@ -44,7 +45,7 @@ export default function BottomTabs() {
             />
 
             <Tab.Screen
-                name="Profile"
+                name={SignedInScreensTab.ProfileScreen}
                 component={ProfileScreen}
                 options={{
                     tabBarLabel: 'Profile',

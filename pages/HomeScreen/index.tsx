@@ -30,7 +30,7 @@ export function HomeScreenStack() {
                     headerLeft: () => null,
                 }}
             />
-            <Stack.Screen name="InterviewDetail" component={InterviewDetailsScreen} />
+            <Stack.Screen name="Detail" component={InterviewDetailsScreen} />
         </Stack.Navigator>
     );
 }

@@ -2,15 +2,8 @@ import 'react-native-gesture-handler';
 import React, {useState} from 'react';
 import {StyleSheet, useColorScheme, View} from 'react-native';
 import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
-import BottomTabs from './components/BottomTabs';
-import {
-    PaperProvider,
-    MD3DarkTheme,
-    MD3LightTheme,
-    adaptNavigationTheme,
-    Text,
-    Button,
-} from 'react-native-paper';
+import MainTabs from './components/MainTabs';
+import {PaperProvider, MD3DarkTheme, MD3LightTheme, adaptNavigationTheme} from 'react-native-paper';
 import {
     NavigationContainer,
     DarkTheme as NavigationDarkTheme,
@@ -18,6 +11,7 @@ import {
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AuthScreen from './pages/AuthScreen';
+import {MainScreens} from './pages/screens';
 
 const Stack = createStackNavigator();
 
@@ -39,13 +33,13 @@ function App(): JSX.Element {
                 <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : LightTheme}>
                     <Stack.Navigator>
                         <Stack.Screen
-                            name="AuthScreen"
+                            name={MainScreens.AuthScreen}
                             component={AuthScreen}
                             options={{headerShown: false}}
                         />
                         <Stack.Screen
-                            name="HomeScreen"
-                            component={BottomTabs}
+                            name={MainScreens.SignedInScreen}
+                            component={MainTabs}
                             options={{
                                 headerShown: false,
                             }}

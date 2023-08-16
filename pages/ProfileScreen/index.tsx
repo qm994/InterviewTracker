@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {View, TouchableHighlight} from 'react-native';
-import {Text, Button} from 'react-native-paper';
+import {TouchableHighlight} from 'react-native';
+import {Button} from 'react-native-paper';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-
+import {MainScreens} from '../../pages/screens';
 import auth from '@react-native-firebase/auth';
 
 export default function ProfileScreen({navigation}: {navigation: NavigationProp<ParamListBase>}) {
@@ -10,7 +10,7 @@ export default function ProfileScreen({navigation}: {navigation: NavigationProp<
         auth()
             .signOut()
             .then(() => {
-                navigation.navigate('AuthScreen');
+                navigation.navigate(MainScreens.AuthScreen);
             })
             .catch(error => {
                 console.log('Error signing out:', error);

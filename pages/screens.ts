@@ -1,4 +1,19 @@
 export enum MainScreens {
     AuthScreen = 'AuthScreen',
-    HomeScreen = 'HomeScreen',
+    SignedInScreen = 'SignedInScreen',
+}
+
+export enum AuthScreens {
+    LoginScreen = 'LoginScreen',
+    RegisterScreen = 'RegisterScreen',
+}
+
+export enum SignedInScreensTab {
+    HomeScreen = 'Home',
+    AddScreen = 'Add',
+    ProfileScreen = 'Profile',
+}
+export enum HomeScreensStack {
+    HomeScreen = 'Home',
+    InterviewDetailScreen = 'Detail',
 }
