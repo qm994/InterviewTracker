@@ -25,16 +25,17 @@ const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) 
         if (!userPassword) {
             return;
         }
-        auth()
-            .signInWithEmailAndPassword(userEmail, userPassword)
-            .then(user => {
-                console.log('log in user is: \n', {user});
-                // If server response message same as Data Matched
-                //if (user) navigation.replace('HomeScreen');
-            })
-            .catch(error => {
-                console.log('login error is: \n', error);
-            });
+        navigation.navigate('HomeScreen');
+        // auth()
+        //     .signInWithEmailAndPassword(userEmail, userPassword)
+        //     .then(user => {
+        //         console.log('log in user is: \n', {user});
+        //         // If server response message same as Data Matched
+        //         if (user) navigation.navigate('HomeScreen');
+        //     })
+        //     .catch(error => {
+        //         console.log('login error is: \n', error);
+        //     });
     };
 
     return (

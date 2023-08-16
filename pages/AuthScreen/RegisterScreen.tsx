@@ -14,6 +14,15 @@ import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
 import auth from '@react-native-firebase/auth';
 
+/*
+TODO:
+1. Add validation for email and password
+2. show error message if email or password is not valid
+3. once succeed register, navigate to login screen
+4. add loading indicator while registering
+5. if rejister failed, show error message
+*/
+
 const RegisterScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) => {
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
@@ -73,7 +82,7 @@ const RegisterScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>
                             autoCapitalize="none"
                             autoCorrect={false}
                             ref={emailInputRef}
-                            //returnKeyType="next"
+                            returnKeyType="next"
                             onSubmitEditing={() =>
                                 passwordInputRef.current && passwordInputRef.current.focus()
                             }

@@ -15,36 +15,11 @@ import {
     NavigationContainer,
     DarkTheme as NavigationDarkTheme,
     DefaultTheme as NavigationDefaultTheme,
-    NavigationProp,
-    ParamListBase,
 } from '@react-navigation/native';
-
 import {createStackNavigator} from '@react-navigation/stack';
-import LoginScreen from './pages/AuthScreen/LoginScreen';
-import RegisterScreen from './pages/AuthScreen/RegisterScreen';
+import AuthScreen from './pages/AuthScreen';
 
 const Stack = createStackNavigator();
-
-const Auth = () => {
-    // Stack Navigator for Login and Sign up Screen
-    return (
-        <Stack.Navigator initialRouteName="LoginScreen">
-            <Stack.Screen
-                name="LoginScreen"
-                component={LoginScreen}
-                options={{headerShown: false}}
-            />
-            <Stack.Screen
-                name="RegisterScreen"
-                component={RegisterScreen}
-                options={{
-                    headerTitle: 'Sign Up',
-                    headerBackTitle: 'Login',
-                }}
-            />
-        </Stack.Navigator>
-    );
-};
 
 function App(): JSX.Element {
     const colorScheme = useColorScheme();
@@ -63,7 +38,11 @@ function App(): JSX.Element {
             <SafeAreaProvider>
                 <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : LightTheme}>
                     <Stack.Navigator>
-                        <Stack.Screen name="Auth" component={Auth} options={{headerShown: false}} />
+                        <Stack.Screen
+                            name="AuthScreen"
+                            component={AuthScreen}
+                            options={{headerShown: false}}
+                        />
                         <Stack.Screen
                             name="HomeScreen"
                             component={BottomTabs}
@@ -77,24 +56,5 @@ function App(): JSX.Element {
         </PaperProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-    },
-    highlight: {
-        fontWeight: '700',
-    },
-});
 
 export default App;

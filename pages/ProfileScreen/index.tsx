@@ -1,12 +1,26 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {View, TouchableHighlight} from 'react-native';
 import {Text, Button} from 'react-native-paper';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-export default function ProfileScreen({navigation}: {navigation: any}) {
+import auth from '@react-native-firebase/auth';
+
+export default function ProfileScreen({navigation}: {navigation: NavigationProp<ParamListBase>}) {
+    const onPressSignOut = () => {
+        auth()
+            .signOut()
+            .then(() => {
+                navigation.navigate('AuthScreen');
+            })
+            .catch(error => {
+                console.log('Error signing out:', error);
+            });
+    };
     return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Settings!</Text>
-            <Button onPress={() => navigation.navigate('Auth')}>Sign out</Button>
-        </View>
+        <TouchableHighlight style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Button mode="contained" onPress={onPressSignOut}>
+                Sign out
+            </Button>
+        </TouchableHighlight>
     );
 }
