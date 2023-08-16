@@ -21,17 +21,9 @@ import {
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LoginScreen from './pages/AuthScreen/LoginScreen';
 
 const Stack = createStackNavigator();
-
-const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) => {
-    return (
-        <SafeAreaView>
-            <Text variant="titleLarge">LoginScreen</Text>
-            <Button onPress={() => navigation.navigate('HomeScreen')}>Login</Button>
-        </SafeAreaView>
-    );
-};
 
 const RegisterScreen = () => {
     return (
