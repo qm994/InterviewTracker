@@ -20,18 +20,10 @@ import {
 } from '@react-navigation/native';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import LoginScreen from './pages/AuthScreen/LoginScreen';
+import RegisterScreen from './pages/AuthScreen/RegisterScreen';
 
 const Stack = createStackNavigator();
-
-const RegisterScreen = () => {
-    return (
-        <SafeAreaView>
-            <Text variant="titleLarge">RegisterScreen</Text>
-        </SafeAreaView>
-    );
-};
 
 const Auth = () => {
     // Stack Navigator for Login and Sign up Screen
@@ -46,14 +38,8 @@ const Auth = () => {
                 name="RegisterScreen"
                 component={RegisterScreen}
                 options={{
-                    title: 'Register', //Set Header Title
-                    headerStyle: {
-                        backgroundColor: '#307ecc', //Set Header color
-                    },
-                    headerTintColor: '#fff', //Set Header text color
-                    headerTitleStyle: {
-                        fontWeight: 'bold', //Set Header text style
-                    },
+                    headerTitle: 'Sign Up',
+                    headerBackTitle: 'Login',
                 }}
             />
         </Stack.Navigator>
