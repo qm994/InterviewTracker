@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, {useState} from 'react';
 import {StyleSheet, ScrollView, View, SafeAreaView, Alert} from 'react-native';
-
-import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {Text, Button, TextInput} from 'react-native-paper';
+import {NavigationProp, ParamListBase, StackActions} from '@react-navigation/native';
+import {Text, Button, TextInput, useTheme} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
+import {MainScreens} from '../screens';
 
 /*
 TODO:
@@ -17,25 +17,50 @@ const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) 
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const [loginError, setLoginError] = useState('');
+
+    const theme = useTheme();
 
     const handleSubmitPress = () => {
         if (!userEmail) {
+            setEmailError('Please enter email!');
             return;
         }
         if (!userPassword) {
+            setPasswordError('Please enter password!');
             return;
         }
-        navigation.navigate('SignedInScreen');
-        // auth()
-        //     .signInWithEmailAndPassword(userEmail, userPassword)
-        //     .then(user => {
-        //         console.log('log in user is: \n', {user});
-        //         // If server response message same as Data Matched
-        //         if (user) navigation.navigate('HomeScreen');
-        //     })
-        //     .catch(error => {
-        //         console.log('login error is: \n', error);
-        //     });
+
+        auth()
+            .signInWithEmailAndPassword(userEmail, userPassword)
+            .then(user => {
+                console.log('log in user is: \n', user);
+                // If server response message same as Data Matched
+                if (user) {
+                    navigation.dispatch(
+                        StackActions.replace(MainScreens.SignedInScreen, {
+                            currentUser: user.user,
+                        }),
+                    );
+                }
+            })
+            .catch(error => {
+                console.log('login error is: \n', error.code);
+                switch (error?.code) {
+                    case 'auth/user-not-found':
+                        setLoginError('Need to register your account?');
+                        break;
+                    case 'auth/wrong-password':
+                        setLoginError('Need to reset password?');
+                        break;
+                    default:
+                        setLoginError('Failed!Please try again or reset/register your account.');
+                        break;
+                }
+            });
     };
 
     return (
@@ -53,43 +78,77 @@ const LoginScreen = ({navigation}: {navigation: NavigationProp<ParamListBase>}) 
                     Log in
                 </Text>
                 <View style={{width: '95%', alignSelf: 'center'}}>
-                    <TextInput
-                        value={userEmail}
-                        onChangeText={text => setUserEmail(text)}
-                        // these props used to disable the auto first letter capitalization
-                        textContentType="emailAddress"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        //
-                        mode="outlined"
-                        label="Email"
-                        placeholder="Email..."
-                        right={<TextInput.Affix text="/100" />}
-                        // onSubmitEditing={() => {
-                        //     console.log('onSubmitEditing called');
-                        // }}
-                    />
-                    <TextInput
-                        value={userPassword}
-                        onChangeText={text => setUserPassword(text)}
-                        autoCapitalize="none"
-                        mode="outlined"
-                        label="Password"
-                        secureTextEntry={hidePassword}
-                        right={
-                            <TextInput.Icon
-                                icon={props => (
-                                    <Ionicons
-                                        name={hidePassword ? 'eye' : 'eye-off'}
-                                        size={props.size}
-                                        color={props.color}
-                                    />
-                                )}
-                                onPress={() => setHidePassword(!hidePassword)}
-                            />
-                        }
-                    />
+                    <View>
+                        <TextInput
+                            value={userEmail}
+                            onChangeText={text => setUserEmail(text)}
+                            // these props used to disable the auto first letter capitalization
+                            textContentType="emailAddress"
+                            keyboardType="email-address"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            //
+                            mode="outlined"
+                            label="Email"
+                            placeholder="Email..."
+                            right={<TextInput.Affix text="/100" />}
+                            // onSubmitEditing={() => {
+                            //     console.log('onSubmitEditing called');
+                            // }}
+                        />
+                        {emailError ? (
+                            <Text
+                                variant="bodyMedium"
+                                style={{
+                                    textAlign: 'left',
+                                    color: theme.colors.error,
+                                }}>
+                                {emailError}
+                            </Text>
+                        ) : (
+                            <></>
+                        )}
+                    </View>
+
+                    <View>
+                        <TextInput
+                            value={userPassword}
+                            onChangeText={text => setUserPassword(text)}
+                            autoCapitalize="none"
+                            mode="outlined"
+                            label="Password"
+                            secureTextEntry={hidePassword}
+                            right={
+                                <TextInput.Icon
+                                    icon={props => (
+                                        <Ionicons
+                                            name={hidePassword ? 'eye' : 'eye-off'}
+                                            size={props.size}
+                                            color={props.color}
+                                        />
+                                    )}
+                                    onPress={() => setHidePassword(!hidePassword)}
+                                />
+                            }
+                        />
+                        {passwordError ? (
+                            <Text
+                                variant="bodyMedium"
+                                style={{
+                                    textAlign: 'left',
+                                    color: theme.colors.error,
+                                }}>
+                                {passwordError}
+                            </Text>
+                        ) : (
+                            <></>
+                        )}
+                    </View>
+
+                    {loginError != '' ? (
+                        <Text style={styles.errorTextStyle}> {loginError} </Text>
+                    ) : null}
+
                     <Button
                         onPressIn={() => console.log('lol')}
                         mode="contained"

@@ -11,6 +11,8 @@ import {
 } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AuthScreen from './pages/AuthScreen';
+
+import SplashScreen from './pages/SplashScreen';
 import {MainScreens} from './pages/screens';
 
 const Stack = createStackNavigator();
@@ -31,7 +33,13 @@ function App(): JSX.Element {
         <PaperProvider theme={paperTheme}>
             <SafeAreaProvider>
                 <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : LightTheme}>
-                    <Stack.Navigator>
+                    <Stack.Navigator initialRouteName="SplashScreen">
+                        <Stack.Screen
+                            name="SplashScreen"
+                            component={SplashScreen}
+                            // Hiding header for Splash Screen
+                            options={{headerShown: false}}
+                        />
                         <Stack.Screen
                             name={MainScreens.AuthScreen}
                             component={AuthScreen}

@@ -13,7 +13,13 @@ export enum SignedInScreensTab {
     AddScreen = 'Add',
     ProfileScreen = 'Profile',
 }
+
 export enum HomeScreensStack {
     HomeScreen = 'Home',
     InterviewDetailScreen = 'Detail',
+}
+
+export enum AddScreensStack {
+    AddSubInterviewScreen = 'AddInterview',
+    AddSubCompanyScreen = 'AddCompany',
 }

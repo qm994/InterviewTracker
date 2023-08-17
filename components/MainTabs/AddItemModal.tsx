@@ -6,10 +6,13 @@ import {BottomTabBarButtonProps} from '@react-navigation/bottom-tabs';
 import {Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from 'react-native-paper';
+import {useNavigation, NavigationProp, ParamListBase} from '@react-navigation/native';
+import {SignedInScreensTab, AddScreensStack} from '../../pages/screens';
 
 function AddItemModal(props: BottomTabBarButtonProps) {
     const theme = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
+    const navigation = useNavigation<NavigationProp<ParamListBase>>();
     return (
         <>
             <Button
@@ -32,14 +35,29 @@ function AddItemModal(props: BottomTabBarButtonProps) {
                         <TouchableOpacity
                             style={styles.contentTitle}
                             hitSlop={{left: 100, right: 100}}>
-                            <Button style={styles.contentTitle} onPress={() => {}}>
+                            <Button
+                                style={styles.contentTitle}
+                                onPress={() => {
+                                    // Click `Add interview in modal and navigate to AddInterview screen`
+                                    setModalVisible(false);
+                                    navigation.navigate('Add', {
+                                        screen: AddScreensStack.AddSubInterviewScreen,
+                                    });
+                                }}>
                                 Add interview
                             </Button>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.contentTitle}
                             hitSlop={{left: 100, right: 100}}>
-                            <Button style={styles.contentTitle} onPress={() => {}}>
+                            <Button
+                                style={styles.contentTitle}
+                                onPress={() => {
+                                    setModalVisible(false);
+                                    navigation.navigate('Add', {
+                                        screen: AddScreensStack.AddSubCompanyScreen,
+                                    });
+                                }}>
                                 Add Company
                             </Button>
                         </TouchableOpacity>

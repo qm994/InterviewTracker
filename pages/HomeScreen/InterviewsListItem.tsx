@@ -8,7 +8,7 @@ const InterviewsListItem = ({item}: {item: ItemData}) => {
 
     const {title, company, status, startDate, endDate, image} = item;
     const onTab = () => {
-        navigation.navigate('InterviewDetail');
+        navigation.navigate('Detail');
     };
     return (
         <TouchableOpacity style={styles.item} onPress={onTab} activeOpacity={0.8}>

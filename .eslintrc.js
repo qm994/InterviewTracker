@@ -1,56 +1,38 @@
 module.exports = {
-    'env': {
-        'browser': true,
-        'es2021': true
+    env: {
+        browser: true,
+        es2021: true,
     },
-    'extends': [
+    extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:react/recommended'
+        'plugin:react/recommended',
     ],
-    'overrides': [
+    overrides: [
         {
-            'env': {
-                'node': true
+            env: {
+                node: true,
             },
-            'files': [
-                '.eslintrc.{js,cjs}'
-            ],
-            'parserOptions': {
-                'sourceType': 'script'
-            }
-        }
+            files: ['.eslintrc.{js,cjs}'],
+            parserOptions: {
+                sourceType: 'script',
+            },
+        },
     ],
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
-        'ecmaVersion': 'latest',
-        'sourceType': 'module'
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
     },
-    'plugins': [
-        '@typescript-eslint',
-        'react',
-        'react-hooks',
-    ],
-    'rules': {
-        'indent': [
-            'error',
-            4
-        ],
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
-        'quotes': [
-            'warn',
-            'single'
-        ],
-        'semi': [
-            'warn',
-            'always'
-        ],
+    plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+    rules: {
+        indent: ['error', 4, {SwitchCase: 1}],
+        'linebreak-style': ['error', 'unix'],
+        quotes: ['warn', 'single'],
+        semi: ['warn', 'always'],
         'no-multi-spaces': 'warn',
         'react-hooks/exhaustive-deps': 'warn',
         'react-hooks/rules-of-hooks': 'error',
-        'max-len': ['warn', { code: 100 }] 
-    }
+        'max-len': ['warn', {code: 100}],
+    },
 };
