@@ -29,6 +29,7 @@ export default function MainTabs() {
                 options={{
                     tabBarLabel: '',
                     tabBarButton: props => <AddItemModal {...props} />,
+                    headerShown: false,
                 }}
                 component={AddScreenStack}
             />
