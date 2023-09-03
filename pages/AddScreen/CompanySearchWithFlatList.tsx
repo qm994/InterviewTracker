@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react';
-import {Text, TextInput, Avatar, Divider} from 'react-native-paper';
+import React, {useState, useRef, useEffect} from 'react';
+import {Text, TextInput, Avatar, Divider, useTheme} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FlatList, View, TouchableHighlight, StyleSheet, Dimensions} from 'react-native';
 import axios from 'axios';
@@ -14,9 +14,15 @@ type CompanyDataType = {
     id?: number;
 };
 
-const AddCompany = () => {
+const CompanySearchWithFlatList = () => {
     const [inputValue, setInputValue] = useState('');
     const [suggestions, setSuggestions] = useState<CompanyDataType[] | []>([]);
+
+    useEffect(() => {
+        if (inputValue === '') {
+            setSuggestions([]);
+        }
+    }, [inputValue]);
 
     const fetchData = (query: string) => {
         axios
@@ -58,7 +64,7 @@ const AddCompany = () => {
     };
 
     return (
-        <SafeAreaView style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <SafeAreaView style={{justifyContent: 'center', alignItems: 'center'}}>
             <View style={{width: '95%', alignSelf: 'center'}}>
                 <TextInput
                     value={inputValue}
@@ -70,7 +76,7 @@ const AddCompany = () => {
 
             <FlatList
                 style={styles.flatContainerStyle}
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'flex-start'}}
+                contentContainerStyle={{justifyContent: 'flex-start'}}
                 data={suggestions}
                 renderItem={({item, separators}) => (
                     <Item item={item} separators={separators} itemOnPress={handleSuggestionPress} />
@@ -90,6 +96,7 @@ type ItemProps = {
 
 const Item = ({item, separators, itemOnPress}: ItemProps) => {
     const screenWidth = Dimensions.get('window').width;
+    const theme = useTheme();
     return (
         <TouchableHighlight
             // 120 is flatItemStyle width and 25 is avatar size
@@ -97,11 +104,11 @@ const Item = ({item, separators, itemOnPress}: ItemProps) => {
             key={item.id}
             onShowUnderlay={separators.highlight}
             onHideUnderlay={separators.unhighlight}
-            onPress={() => itemOnPress(item.name)}>
+            onPress={() => itemOnPress(item.name)}
+            underlayColor={theme.colors.primary}>
             <View style={styles.flatItemStyle}>
                 <Avatar.Image size={25} source={{uri: item.logo}} />
-
-                <Text style={{marginLeft: 10}}>{item.name}</Text>
+                <Text style={{marginLeft: 10, width: '100%'}}>{item.name}</Text>
             </View>
         </TouchableHighlight>
     );
@@ -114,8 +121,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexWrap: 'nowrap',
         height: 30,
-        width: 120,
+        width: '100%',
     },
 });
 
-export default AddCompany;
+export default CompanySearchWithFlatList;

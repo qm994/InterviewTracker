@@ -7,7 +7,7 @@ import {Button} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTheme} from 'react-native-paper';
 import {useNavigation, NavigationProp, ParamListBase} from '@react-navigation/native';
-import {SignedInScreensTab, AddScreensStack} from '../../pages/screens';
+import {AddScreensStack} from '../../pages/screens';
 
 function AddItemModal(props: BottomTabBarButtonProps) {
     const theme = useTheme();

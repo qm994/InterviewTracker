@@ -18,7 +18,7 @@ import auth from '@react-native-firebase/auth';
 TODO:
 1. Add validation for email and password
 2. show error message if email or password is not valid
-3. once succeed register, navigate to login screen
+3. once succeed register, navigate to logisn screen
 4. add loading indicator while registering
 5. if rejister failed, show error message
 */

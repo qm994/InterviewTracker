@@ -2,7 +2,6 @@ import * as React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {HomeScreenStack} from '../../pages/HomeScreen';
 import ProfileScreen from '../../pages/ProfileScreen';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AddItemModal from './AddItemModal';
 import {SignedInScreensTab} from '../../pages/screens';
