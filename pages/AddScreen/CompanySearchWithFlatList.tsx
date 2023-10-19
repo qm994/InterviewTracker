@@ -31,7 +31,7 @@ const CompanySearchWithFlatList = () => {
                     query: query,
                 },
                 auth: {
-                    username: 'sk_15064f80877e12777f814e58d3200a67',
+                    username: ''
                 },
             })
             .then(response => {
