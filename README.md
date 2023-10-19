@@ -1,5 +1,9 @@
 # Project Intro
 
+This project started on 09/23. Tough it has a lot functionalities achieved ex: Authentication, multiple views etc, i still decided to abondon it. If you would like to continue, feel free fork it. And if you like to integrate with firebase, then add your GoogleService-Info.plist under ios folder.
+
+I decided to switch to SWIFT AND SWIFTUI for better ios experience.
+
 ## Stack Naivgators
 
 #### Level 1 Screen
